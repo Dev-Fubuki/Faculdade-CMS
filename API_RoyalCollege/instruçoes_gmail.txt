@@ -1,0 +1,17 @@
+Para usar o Nodemailer para enviar e-mails através do SMTP do Gmail, você precisa fazer algumas configurações na sua conta 
+do Gmail e habilitar a "Aplicação menos segura". Aqui estão os passos:
+
+1. **Ativar a opção "Aplicação menos segura"**:
+
+   - Acesse sua conta do Gmail.
+   - Clique na sua foto de perfil no canto superior direito e selecione "Gerenciar sua Conta Google".
+   - No painel à esquerda, clique em "Segurança".
+   - Role para baixo até encontrar a seção "Acesso a apps menos seguros" e ative essa opção. Isso permite que aplicativos menos seguros,
+    como o Nodemailer, acessem sua conta de e-mail. Este é um passo de segurança importante, então esteja ciente dos riscos.
+
+
+Lembre-se de que habilitar o acesso a aplicativos menos seguros torna sua conta de e-mail mais vulnerável, portanto, use essa configuração 
+com cuidado. Se possível, considere utilizar uma conta de e-mail específica para esse tipo de aplicação em vez de sua conta pessoal.
+
+Certifique-se de usar suas credenciais do Gmail corretamente no código (endereço de e-mail e senha) e mantenha essas informações em um 
+local seguro.
