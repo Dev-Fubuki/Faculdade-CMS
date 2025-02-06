@@ -1,0 +1,149 @@
+{{!-- numero.handlebars --}}
+
+{{!-- Seção de conteúdo da página --}}
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastro de Numeros</h1>
+    <div class="row mb-3">
+        <div class="col-md-10 mb-3">
+            <form action="#" method="post" class="d-flex" id="searchForm">
+                <!-- Define a ação e o método POST e utiliza display flex para alinhar o botão e a input -->
+                <div class="input-group">
+                    <input type="text" class="form-control" name="valorPesquisa" id="valorPesquisa"
+                        placeholder="Pesquisar...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-2 d-flex justify-content-end mb-3">
+            <!-- Botão Novo -->
+            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createNumeroModal"><i class="bi bi-plus-circle"></i> Novo</a>
+        </div>
+    </div>
+
+    <div class="row" id="card-list">
+        {{#each numeros}}
+        <div class="col-md-3 mb-4" id="card{{id}}">
+            <div class="card h-100 text-center">
+                <div class="card-icone display-1">{{{icone}}}</div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{numero}}</h5>
+                    <p class="card-text">{{titulo}}</p>
+                    <div class="d-flex mt-auto justify-content-between">
+                        <!-- Link de Edição -->
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editNumeroModal"
+                            data-id="{{id}}"><i class="bi bi-pencil"></i> Editar</button>
+
+                        <!-- Link de Exclusão - Botão para acionar o modal -->
+                        <button class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteModal{{id}}"><i class="bi bi-trash3"></i> Excluir</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de Confirmação de Exclusão -->
+
+        <div class="modal fade" id="confirmDeleteModal{{id}}" tabindex="-1"
+            aria-labelledby="confirmDeleteModalLabel{{id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="confirmDeleteModalLabel{{id}}">Exclusão</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza que deseja excluir o numero: <strong>{{titulo}}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
+                        <!-- Botão de Confirmação - Chama a função JavaScript para excluir -->
+                        <button type="button" class="btn btn-danger"
+                            onclick="confirmDeleteNumero({{id}})"><i class="bi bi-check-circle"></i> Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <!-- Modal de Edição de Numero -->
+    <div class="modal fade" id="editNumeroModal" tabindex="-1" role="dialog" aria-labelledby="editNumeroModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editNumeroModalLabel">Editar Numero</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de Edição de Numero -->
+                    <form id="editNumeroForm">
+                        <div class="form-group">
+                            <label for="editTitulo">Título</label>
+                            <input type="text" class="form-control" id="editTitulo" name="titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editNumero">Numero</label>
+                            <input type="number" class="form-control" id="editNumero" name="numero" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="editIcone">Ícone (Cole com as tags "<i>")</label>
+                            <input type="text" class="form-control" id="editIcone" name="icone" required>
+                        </div>
+
+                        <!-- Campo oculto para armazenar o ID do numero -->
+                        <input type="hidden" id="editNumeroId" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveEditNumero">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Criação de Numero -->
+    <div class="modal fade" id="createNumeroModal" tabindex="-1" role="dialog" aria-labelledby="createNumeroModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createNumeroModalLabel">Criar Novo Numero</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulário de Criação de Numero -->
+                    <form id="createNumeroForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="createTitulo">Título</label>
+                            <input type="text" class="form-control" id="createTitulo" name="titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="createNumero">Número</label>
+                            <input type="number" class="form-control" id="createNumero" name="numero" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="createIcone">Ícone (cole com as tags "<i>")</label>
+                            <input type="text" class="form-control" id="createIcone" name="icone" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveCreateNumero">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts do formulário curso -->
+<script src="../js/numeroScripts.js"></script> 

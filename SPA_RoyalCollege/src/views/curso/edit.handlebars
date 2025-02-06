@@ -1,0 +1,40 @@
+{{!-- edit.handlebars --}}
+
+{{!-- Seção de conteúdo da página --}}
+<div class="container mt-4 w-80">
+    <h1 class="mb-4">Editar Curso</h1>
+    <form id="editCursoForm" enctype="multipart/form-data" method="post">
+        <div class="form-group mb-3">
+            <label for="editTitulo">Título</label>
+            <input type="text" class="form-control" id="editTitulo" name="titulo" value="{{curso.titulo}}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="editResumo">Resumo</label>
+            <input type="text" class="form-control" id="editResumo" name="resumo" value="{{curso.resumo}}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="editConteudo">Conteúdo</label>
+            <textarea class="form-control" id="editConteudo" name="conteudo" rows="10" required>{{curso.conteudo}}</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="editImagemPrincipal">Imagem Principal</label>
+            <input type="file" class="form-control-file" id="editImagemPrincipal" name="imagem_principal" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="editOrdem">Ordem</label>
+            <input type="number" class="form-control" id="editOrdem" name="ordem" value="{{curso.ordem}}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="editImagensInternas">Imagens Internas</label>
+            <input type="file" class="form-control-file" id="editImagensInternas" name="imagens_internas" multiple>
+        </div>
+        <!-- Campo oculto para armazenar o ID do curso -->
+        <input type="hidden" id="editCursoId" name="id" value="{{curso.id}}">
+        <a  href="../cursos/" class="btn btn-secondary" id="cancelEditCurso"><i class="bi bi-x-circle"></i> Cancelar</a>
+        <button  type="button" class="btn btn-primary" id="saveEditCurso" onclick="UpdateCursoClick(event)"><i class="bi bi-check-circle"></i> Salvar</button>
+    </form>
+</div>
+
+
+<!-- Scripts do formulário curso -->
+<script src="../js/cursoScripts.js"></script> 
